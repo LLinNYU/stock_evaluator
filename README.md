@@ -20,4 +20,4 @@ The goal is to understand and navigate the stock market with a relatively small 
     - Evaluate whether this is relevant to stocks - if so, suggest relevant topics
     - Requires LLMs/NLP
 3) Stock history/metrics
-    - 
+    - Fetch stock history from Yahoo
