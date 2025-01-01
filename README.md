@@ -12,7 +12,7 @@ The goal is to understand and navigate the stock market with a relatively small 
         - If False:
             - Create new folder named the current date 
             - Run title_reader.py on the relevant RSS feeds
-                - SPACE OUT THE URL REQUESTS SO YOU DON'T GET KICKED BY GOOGLE
+                - SPACE OUT THE URL REQUESTS (so you don't get kicked by Google)
                 - topics: "stock market", "world", "business", "technology", "entertainment", "sports", "science", "health"
                 - News from current day only
             - Storage via SQLite because I'd like querying abilities 
@@ -21,3 +21,6 @@ The goal is to understand and navigate the stock market with a relatively small 
     - Requires LLMs/NLP
 3) Stock history/metrics
     - Fetch stock history from Yahoo
+
+# Dependencies:
+- feedparser: `pip install feedparser`
