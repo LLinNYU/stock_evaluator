@@ -23,4 +23,5 @@ The goal is to understand and navigate the stock market with a relatively small 
     - Fetch stock history from Yahoo
 
 # Dependencies:
+(Assuming sqlite3 is installed)
 - feedparser: `pip install feedparser`
