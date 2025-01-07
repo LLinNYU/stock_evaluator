@@ -41,7 +41,7 @@ article_titles (
                source TEXT NOT NULL
                )""")
 
-for topic, topic_url in rss_feeds_mini:
+for topic, topic_url in rss_feeds_mini.items():
     response = requests.get(topic_url)
     if response.status_code == 200:
         # parse content soup
@@ -49,16 +49,21 @@ for topic, topic_url in rss_feeds_mini:
 
         # item extraction
         items = soup.find_all('item')
-        for item in items: 
-            original_date = datetime.strptime(pub_date, "%a, %d %b %Y %H:%M:%S %Z")
-            if 
-            if 
-            title = item.find('title').text
-            pub_date = item.find('pubDate').text
-            source_name = item.find('source').text
-            sql_date = original_date.strftime("%Y-%m-%d %H:%M:%S")
 
+        for item in items: 
+            # only care about today's news for consistency - everything in GMT time
+            pub_date = item.find('pubDate').text
+            original_date = datetime.strptime(pub_date, "%a, %d %b %Y %H:%M:%S %Z")
+            gmt_now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+            if (gmt_now == original_date.strftime("%Y-%m-%d")):
+                title = item.find('title').text
+                print('Record this entry!: ', title)
+                source_name = item.find('source').text
+                sql_date = original_date.strftime("%Y-%m-%d %H:%M:%S")
 
             # execute sanitized user inputs
             cursor.execute("""INSERT INTO article_titles (topic,title,pub_date,source)
-                        values (?,?,?,?)""",())
+                        values (?,?,?,?)""",(topic,title,sql_date,source_name))
+    else: 
+        print('Error :/ Status code:', response.status_code)
