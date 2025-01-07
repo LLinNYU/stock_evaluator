@@ -1,18 +1,11 @@
-# import feedparser
+import feedparser
 import sys
 import os 
+import sqlite3
+import requests
+from datetime import datetime,timezone
+
 from bs4 import BeautifulSoup
-from datetime import date
-
-# Check if today's date exists in titles_data - create it if it doesn't 
-today = date.today()
-today_day = today.day
-today_month = today.month
-today_year = today.year
-
-today_directory = str(today_month) + "_" + str(today_day) + "_" + str(today_year)
-current_directory = os.getcwd()
-target_path = os.path.join(current_directory, 'article_titles')
 
 # dictionary of RSS feeds to read each day
 rss_feeds = {
@@ -26,3 +19,46 @@ rss_feeds = {
     'entertainment': 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNREpxYW5RU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen'
     }
 
+# db file path
+db_path = '/workspaces/stock_evaluator/article_titles/titles.db'
+
+# initialize database before first retrieval
+# session to connect to sqlite database
+conn = sqlite3.connect(db_path)
+# sql execution object
+cursor = conn.cursor()
+
+rss_feeds_mini = {
+    'business': 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen'}
+
+# need id, topic, title, publication date, source
+cursor.execute("""CREATE TABLE IF NOT EXISTS 
+article_titles (
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               topic TEXT NOT NULL,
+               title TEXT NOT NULL,
+               pub_date DATETIME NOT NULL,
+               source TEXT NOT NULL
+               )""")
+
+for topic, topic_url in rss_feeds_mini:
+    response = requests.get(topic_url)
+    if response.status_code == 200:
+        # parse content soup
+        soup = BeautifulSoup(response.content, 'xml')
+
+        # item extraction
+        items = soup.find_all('item')
+        for item in items: 
+            original_date = datetime.strptime(pub_date, "%a, %d %b %Y %H:%M:%S %Z")
+            if 
+            if 
+            title = item.find('title').text
+            pub_date = item.find('pubDate').text
+            source_name = item.find('source').text
+            sql_date = original_date.strftime("%Y-%m-%d %H:%M:%S")
+
+
+            # execute sanitized user inputs
+            cursor.execute("""INSERT INTO article_titles (topic,title,pub_date,source)
+                        values (?,?,?,?)""",())
