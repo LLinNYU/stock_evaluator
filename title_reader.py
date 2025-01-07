@@ -7,6 +7,11 @@ from datetime import datetime,timezone
 
 from bs4 import BeautifulSoup
 
+# PLEASE ADD##############
+# NEED TO:
+# (1) CLOSE CONN
+# (2) NEED TO IGNORE IF THE DATE IS ALREADY FOUND IN THE DATABASE!!!!
+
 # dictionary of RSS feeds to read each day
 rss_feeds = {
     'business': 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen',
@@ -67,3 +72,5 @@ for topic, topic_url in rss_feeds_mini.items():
                         values (?,?,?,?)""",(topic,title,sql_date,source_name))
     else: 
         print('Error :/ Status code:', response.status_code)
+
+    
