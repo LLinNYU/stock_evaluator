@@ -36,15 +36,16 @@ cursor = conn.cursor()
 rss_feeds_mini = {
     'business': 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen'}
 
+# DB ALREADY EXISTS, SAVE SOME COMPUTE RESOURCES by commenting the below
 # need id, topic, title, publication date, source
-cursor.execute("""CREATE TABLE IF NOT EXISTS 
-article_titles (
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               topic TEXT NOT NULL,
-               title TEXT NOT NULL,
-               pub_date DATETIME NOT NULL,
-               source TEXT NOT NULL
-               )""")
+# cursor.execute("""CREATE TABLE IF NOT EXISTS 
+# article_titles (
+#                id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                topic TEXT NOT NULL,
+#                title TEXT NOT NULL,
+#                pub_date DATETIME NOT NULL,
+#                source TEXT NOT NULL
+#                )""")
 
 for topic, topic_url in rss_feeds_mini.items():
     response = requests.get(topic_url)
@@ -54,22 +55,34 @@ for topic, topic_url in rss_feeds_mini.items():
 
         # item extraction
         items = soup.find_all('item')
+        gmt_now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-        for item in items: 
-            # only care about today's news for consistency - everything in GMT time
-            pub_date = item.find('pubDate').text
-            original_date = datetime.strptime(pub_date, "%a, %d %b %Y %H:%M:%S %Z")
-            gmt_now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        # did I already run this script today and grab all the articles?
+        # if so, then don't add more
+        cursor.execute("""SELECT MAX(pub_date) latest_update FROM article_titles
+                       WHERE DATE(latest_update) = DATE('now','utc')""")
+        already_parsed_today = cursor.fetchone()
 
-            if (gmt_now == original_date.strftime("%Y-%m-%d")):
-                title = item.find('title').text
-                print('Record this entry!: ', title)
-                source_name = item.find('source').text
-                sql_date = original_date.strftime("%Y-%m-%d %H:%M:%S")
 
-            # execute sanitized user inputs
-            cursor.execute("""INSERT INTO article_titles (topic,title,pub_date,source)
-                        values (?,?,?,?)""",(topic,title,sql_date,source_name))
+        if not already_parsed_today[0]:
+            for item in items: 
+                # only care about today's news for consistency - everything in GMT time
+                pub_date = item.find('pubDate').text
+                original_date = datetime.strptime(pub_date, "%a, %d %b %Y %H:%M:%S %Z")
+
+                if (gmt_now == original_date.strftime("%Y-%m-%d")):
+                    title = item.find('title').text
+                    print('Record this entry!: ', title)
+                    source_name = item.find('source').text
+                    sql_date = original_date.strftime("%Y-%m-%d %H:%M:%S")
+
+                # execute sanitized user inputs
+                cursor.execute("""INSERT INTO article_titles (topic,title,pub_date,source)
+                            values (?,?,?,?)""",(topic,title,sql_date,source_name))
+        else:
+            print('You\'ve already saved the article titles today')   
+        # good practice
+        conn.close()
     else: 
         print('Error :/ Status code:', response.status_code)
 
