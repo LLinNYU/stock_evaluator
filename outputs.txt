@@ -1,0 +1,15 @@
+Script started, file is typescript
+[0;32m@LLinNYU [0m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ exit[K[K
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;14r[?12h[?12l[22;2t[22;1t[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[?25l[14;1HEntering Ex mode.  Type "visual" to go to Normal mode.[?25h
+
+:exit
+
+[?2004l[23;2t[23;1t[?2004l[?1l>[>4;m[?1049l[23;0;0t[0;32m@LLinNYU [0m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ qa
+bash: qa: command not found
+[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ qa
+bash: qa: command not found
+[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ ^C
+[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0[K[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ [K[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ [K[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ [K[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ [K[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ [K[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ ^C
+[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ logout
+bash: logout: not login shell: use `exit'
+[0;32m@LLinNYU [1;31m➜ [1;34m/workspaces/stock_evaluator [0;36m([1;31mmain[0;36m) [0m$ 
