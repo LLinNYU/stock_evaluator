@@ -3,7 +3,8 @@ name: Daily Title Reading
 on: 
   schedule: 
   # run this daily at 11pm UTC to get as many of the files as possible
-  - cron: '59 23 * * *'
+    - cron: '59 23 * * *'
+  workflow_dispatch:
 
 jobs:
   run-task:
@@ -16,7 +17,7 @@ jobs:
       - name: Setup Python version
         uses: actions/setup-python@v5
         with:
-          python version: '3.12.1'
+          python version: 'latest'
       
       - name: Install dependencies
         run: |
