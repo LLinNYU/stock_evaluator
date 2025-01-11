@@ -3,7 +3,7 @@ name: Daily Title Reading
 on: 
   schedule: 
   # run this daily at 11pm UTC to get as many of the files as possible
-    - cron: '59 23 * * *'
+    - cron: '50 23 * * *'
   workflow_dispatch:
 
 jobs:
