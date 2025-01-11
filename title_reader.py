@@ -118,4 +118,3 @@ for topic, topic_url in rss_feeds.items():
 conn.commit()
 conn.close()
 
-        

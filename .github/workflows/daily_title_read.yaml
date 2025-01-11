@@ -1,0 +1,22 @@
+name: Daily Title Reading
+
+on: 
+  schedule: 
+  # run this daily at 11pm UTC to get as many of the files as possible
+  - cron: '59 23 * * *'
+
+jobs:
+  run-task:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python version
+        uses: actions/setup-python@v5
+        with:
+          python version: '3.12.1'
+      
+      - name: Install dependencies
+        uses: 
