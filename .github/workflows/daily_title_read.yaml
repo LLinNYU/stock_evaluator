@@ -19,4 +19,8 @@ jobs:
           python version: '3.12.1'
       
       - name: Install dependencies
-        uses: 
+        run: |
+        pip install -r requirements.txt
+
+      - name: Run daily read
+        run: python title_reader.py
