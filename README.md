@@ -21,4 +21,5 @@ The goal is to understand and navigate the stock market with a relatively small 
 (Assuming sqlite3 is part of python and requests is installed)
 - feedparser: `pip install feedparser`
 - lmxl: `pip install lmxl`
+- Beautiful Soup: `pip install beautifulsoup4`
 
