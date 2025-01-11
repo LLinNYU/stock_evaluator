@@ -1,4 +1,4 @@
 feedparser
-lmxl
+lxml
 sqlite3
 requests
