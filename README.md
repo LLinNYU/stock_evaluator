@@ -7,7 +7,6 @@ The goal is to understand and navigate the stock market with a relatively small 
 ## Part 1: Title Readers
 1) Data Storage: `Daily RSS Feeds`
     - Run title_reader.py on the relevant RSS feeds
-        - SPACE OUT THE URL REQUESTS (so you don't get kicked by Google)
         - topics: "stock market", "world", "business", "technology", "entertainment", "sports", "science", "health"
         - News from current day only
     - Storage via SQLite because for querying abilities 
