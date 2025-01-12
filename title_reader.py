@@ -7,6 +7,11 @@ from datetime import datetime,timezone
 
 from bs4 import BeautifulSoup
 
+# Run via the following in terminal:
+# export DB_PATH=/workspaces/stock_evaluator/article_titles/titles.db
+# python title_reader.py
+
+
 # NEED TO:
 # Ensure that at least one entry has been run first
 
@@ -23,8 +28,8 @@ rss_feeds = {
     }
 
 # db file path
-# db_path = '/workspaces/stock_evaluator/article_titles/titles.db'
-db_path = os.getenv('DB_PATH')
+db_path = '/workspaces/stock_evaluator/article_titles/titles.db'
+# db_path = os.getenv('DB_PATH')
 
 # initialize database before first retrieval
 # session to connect to sqlite database
@@ -92,6 +97,8 @@ for topic, topic_url in rss_feeds.items():
         cursor.execute("""SELECT COUNT(*) FROM article_titles""")
 
         # if no entries added previously, thus 0 rows
+        print('topic: ', topic)
+
         if cursor.fetchone()[0] == 0:
             print('no entries previously, let\'s read')
             read_items(items)
@@ -102,7 +109,12 @@ for topic, topic_url in rss_feeds.items():
             # Query: Did a specific topic for today get logged? 
             cursor.execute("""SELECT COALESCE(DATE(MAX(pub_date)) = DATE('now','utc'),0) FROM article_titles
                            WHERE topic = ?""",(topic,))
+
             already_parsed_today = False if cursor.fetchone()[0] == 0 else True
+
+            # cursor.execute("""SELECT COALESCE(DATE(MAX(pub_date)), DATE('now','utc'),0) FROM article_titles
+            #                WHERE topic = ?""",(topic,))
+            # print("tech issue: ",cursor.fetchall())
             
             cursor.execute("""SELECT DATE('now','utc')""")
             print('today\'s date in UTC:',cursor.fetchone()[0], )
@@ -110,6 +122,8 @@ for topic, topic_url in rss_feeds.items():
             #if it hasn't been parsed today, add all the entries in
             if not already_parsed_today:
                 print('hasn\'t been parsed today')
+                print()
+                ######UNCOMMENT THIS BEFORE RUNNING
                 read_items(items)
             else:
                 print('You\'ve already saved the article titles today!')

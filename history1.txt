@@ -1,6 +1,0 @@
-    1  git add .
-    2  git commit -m"added 'close conn' and ignore date if ran the data once already"
-    3  git push origin main
-    4  python title_reader.py 
-    5  python read_db.py 
-    6  history > history1.txt
