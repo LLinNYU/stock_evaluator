@@ -17,6 +17,12 @@ jobs:
       - name: Checkout repo code
         uses: actions/checkout@v4
       
+      - name: Show current working directory
+        run: pwd
+
+      - name: List files in current directory
+        run: ls -l
+      
       - name: Setup Python version
         uses: actions/setup-python@v5
         with:
@@ -25,6 +31,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+
+      # testing: Download the database
+      # - name: Download database artifact
+      #   uses: actions/download-artifact@v4
+      #   with: 
+      #     name: 
+
 
       - name: Run daily read
         run: |
