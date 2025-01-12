@@ -10,6 +10,9 @@ jobs:
   run-task:
     runs-on: ubuntu-latest
 
+    env:
+      DB_PATH: '/workspaces/stock_evaluator/article_titles/titles.db'
+
     steps:
       - name: Checkout repo code
         uses: actions/checkout@v4
