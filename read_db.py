@@ -19,9 +19,8 @@ print(cursor.fetchone()[0])
 # cursor.execute('SELECT * from article_titles WHERE id < 2')
 # print(cursor.fetchall())
 
-#delete all entries from today
-# cursor.execute('''SELECT COUNT(*) FROM article_titles''')
-# print(cursor.fetchone()[0])
+cursor.execute('''SELECT COUNT(*) FROM article_titles''')
+print(cursor.fetchone()[0])
 
 # cursor.execute('''DELETE FROM article_titles WHERE DATE(pub_date) = DATE('now','utc')''')
 
@@ -41,18 +40,21 @@ print(cursor.fetchone()[0])
 # cursor.execute('SELECT * FROM article_titles ORDER BY id DESC LIMIT 5')
 # print(cursor.fetchall())
 
-# cursor.execute('''CREATE TABLE new_table (
-#                id INTEGER PRIMARY KEY AUTOINCREMENT,
-#                topic TEXT NOT NULL,
-#                title TEXT NOT NULL,
-#                pub_date DATETIME NOT NULL,
-#                source TEXT NOT NULL)''')
-# cursor.execute('''INSERT INTO new_table (topic,title,pub_date,source)
-#                SELECT DISTINCT topic,title,pub_date,source FROM article_titles''')
-# cursor.execute('''DROP TABLE article_titles''')
-# cursor.execute('''ALTER TABLE new_table RENAME TO article_titles''')
+cursor.execute('''CREATE TABLE new_table (
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               topic TEXT NOT NULL,
+               title TEXT NOT NULL,
+               pub_date DATETIME NOT NULL,
+               source TEXT NOT NULL)''')
+cursor.execute('''INSERT INTO new_table (topic,title,pub_date,source)
+               SELECT DISTINCT topic,title,pub_date,source FROM article_titles''')
+cursor.execute('''DROP TABLE article_titles''')
+cursor.execute('''ALTER TABLE new_table RENAME TO article_titles''')
 
-# conn.commit()
+cursor.execute('''SELECT COUNT(*) FROM article_titles''')
+print(cursor.fetchone()[0])
+
+conn.commit()
 conn.close()
 
 # print(last_updated_today)
