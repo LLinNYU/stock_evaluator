@@ -28,8 +28,8 @@ rss_feeds = {
     }
 
 # db file path
-# db_path = '/workspaces/stock_evaluator/article_titles/titles.db'
-db_path = os.getenv('DB_PATH')
+db_path = '/workspaces/stock_evaluator/article_titles/titles.db'
+# db_path = os.getenv('DB_PATH')
 
 # initialize database before first retrieval
 # session to connect to sqlite database
@@ -69,7 +69,7 @@ cursor = conn.cursor()
     # check if it has today
     # if has today: print 'hey you did this already'
     # else: go straight adding entries 
-def read_items(items):
+def read_items(items,utc_date_now):
     for item in items: 
         # only care about today's news for consistency - everything in GMT time
         pub_date = item.find('pubDate').text
@@ -79,9 +79,10 @@ def read_items(items):
         source_name = item.find('source').text
         sql_date = original_date.strftime("%Y-%m-%d %H:%M:%S")
 
-        # execute sanitized user inputs
-        cursor.execute("""INSERT INTO article_titles (topic,title,pub_date,source)
-                    values (?,?,?,?)""",(topic,title,sql_date,source_name))
+        if original_date.strftime("%Y-%m-%d") == utc_date_now:
+            # execute sanitized user inputs
+            cursor.execute("""INSERT INTO article_titles (topic,title,pub_date,source)
+                        values (?,?,?,?)""",(topic,title,sql_date,source_name))
 
 for topic, topic_url in rss_feeds.items():
     response = requests.get(topic_url)
@@ -101,7 +102,7 @@ for topic, topic_url in rss_feeds.items():
 
         if cursor.fetchone()[0] == 0:
             print('no entries previously, let\'s read')
-            read_items(items)
+            read_items(items,gmt_now)
         else:
             # table has already been written in before
             # print('previous entries exist')
@@ -124,7 +125,7 @@ for topic, topic_url in rss_feeds.items():
                 print('hasn\'t been parsed today')
                 print()
                 ######UNCOMMENT THIS BEFORE RUNNING
-                read_items(items)
+                read_items(items,gmt_now)
             else:
                 print('You\'ve already saved the article titles today!')
 
