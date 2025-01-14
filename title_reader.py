@@ -28,8 +28,8 @@ rss_feeds = {
     }
 
 # db file path
-db_path = '/workspaces/stock_evaluator/article_titles/titles.db'
-# db_path = os.getenv('DB_PATH')
+# db_path = '/workspaces/stock_evaluator/article_titles/titles.db'
+db_path = os.getenv('DB_PATH')
 
 # initialize database before first retrieval
 # session to connect to sqlite database
