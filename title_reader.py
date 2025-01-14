@@ -75,11 +75,11 @@ def read_items(items,utc_date_now):
         pub_date = item.find('pubDate').text
         original_date = datetime.strptime(pub_date, "%a, %d %b %Y %H:%M:%S %Z")
         title = item.find('title').text
-        print('Record this entry!: ', title)
         source_name = item.find('source').text
         sql_date = original_date.strftime("%Y-%m-%d %H:%M:%S")
 
         if original_date.strftime("%Y-%m-%d") == utc_date_now:
+            print('Record this entry!: ', title)
             # execute sanitized user inputs
             cursor.execute("""INSERT INTO article_titles (topic,title,pub_date,source)
                         values (?,?,?,?)""",(topic,title,sql_date,source_name))
@@ -123,7 +123,6 @@ for topic, topic_url in rss_feeds.items():
             #if it hasn't been parsed today, add all the entries in
             if not already_parsed_today:
                 print('hasn\'t been parsed today')
-                print()
                 ######UNCOMMENT THIS BEFORE RUNNING
                 read_items(items,gmt_now)
             else:
