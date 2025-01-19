@@ -23,5 +23,4 @@ The goal is to understand and navigate the stock market with a relatively small 
 - Beautiful Soup: `pip install beautifulsoup4`
 - transformers: `pip install transformers`
 - spacy: `pip install spacy`
-    `python -m spacy`
 
