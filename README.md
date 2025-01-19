@@ -21,4 +21,7 @@ The goal is to understand and navigate the stock market with a relatively small 
 - feedparser: `pip install feedparser`
 - lmxl: `pip install lmxl`
 - Beautiful Soup: `pip install beautifulsoup4`
+- transformers: `pip install transformers`
+- spacy: `pip install spacy`
+    `python -m spacy`
 
