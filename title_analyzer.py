@@ -23,6 +23,8 @@ finance_keywords = ["acquisition", "analysis", "dividends",
 def relevant(some_title):
     doc = nlp(some_title.lower().strip())
     org_entities = any(ent.label_ == 'ORG' for ent in doc.ents)
+    has_finance_words = any(word in some_title for word in finance_keywords)
 
-    return (org_entities and finance_keywords)
+    return (org_entities and has_finance_words)
 
+print(relevant('Meta stocks increase'))
